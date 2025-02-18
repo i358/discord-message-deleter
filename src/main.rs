@@ -26,10 +26,7 @@ struct Author {
 }
 
 #[derive(Debug, Deserialize)]
-struct RateLimitResponse {
-    retry_after: f64,
-    message: String,
-}
+struct RateLimitResponse {}
 
 struct DiscordClient {
     client: Client,
@@ -136,7 +133,7 @@ impl DiscordClient {
                 println!("Messages after filtering for user: {}", filtered.len());
                 return Ok(filtered);
             } else if response.status() == StatusCode::TOO_MANY_REQUESTS {
-                let rate_limit: RateLimitResponse = response.json().await?;
+                let _: RateLimitResponse = response.json().await?;
                 println!("Rate limited! Waiting {} seconds...", self.rate_limit_delay);
                 sleep(Duration::from_secs(self.rate_limit_delay)).await;
                 continue;
@@ -164,7 +161,7 @@ impl DiscordClient {
                 println!("Deleted message {}", message_id);
                 return Ok(());
             } else if status == StatusCode::TOO_MANY_REQUESTS {
-                let rate_limit: RateLimitResponse = response.json().await?;
+                let _: RateLimitResponse = response.json().await?;
                 println!("Rate limited! Waiting {} seconds...", self.rate_limit_delay);
                 sleep(Duration::from_secs(self.rate_limit_delay)).await;
                 continue;
