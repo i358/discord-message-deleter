@@ -333,19 +333,19 @@ async fn main() -> Result<()> {
     };
 
     let delete_delay = read_number_input(
-        &format!("Enter delay between message deletions ({}ms-{}ms, default 500ms): ",
+        &format!("Enter delay between message deletions ({}ms-{}ms, default 50ms): ",
             MIN_DELETE_DELAY, MAX_DELETE_DELAY),
         MIN_DELETE_DELAY,
         MAX_DELETE_DELAY,
-        500,
+        50,
     )?;
 
     let rate_limit_delay = read_number_input(
-        &format!("Enter rate limit delay ({}s-{}s, default 10s): ",
+        &format!("Enter rate limit delay ({}s-{}s, default 5s): ",
             MIN_RATE_LIMIT_DELAY, MAX_RATE_LIMIT_DELAY),
         MIN_RATE_LIMIT_DELAY,
         MAX_RATE_LIMIT_DELAY,
-        10,
+        5,
     )?;
 
     println!("\nConfiguration:");

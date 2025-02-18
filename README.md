@@ -141,6 +141,8 @@ cargo run --release
 
 > [!NOTE]  
 > - Gecikmeleri ihtiyacınıza göre ayarlayın
+> - Varsayılan silme gecikmesi: 50ms
+> - Varsayılan rate limit gecikmesi: 5 saniye
 > - Yüksek gecikmeler = Daha kararlı ama yavaş
 > - Düşük gecikmeler = Daha hızlı ama rate limit riski yüksek
 
@@ -267,8 +269,8 @@ cargo run --release
 ## ⚙️ Yapılandırma
 
 > [!NOTE]  
-> - **Silme Gecikmesi**: Varsayılan 50ms. Daha düşük değerler rate limit'e yakalanma olasılığını artırır.
-> - **Rate Limit Gecikmesi**: Varsayılan 5 saniye. Çok fazla rate limit alıyorsanız artırın.
+> - **Silme Gecikmesi**: Default is 50ms. Lower values might trigger rate limits more frequently.
+> - **Rate Limit Gecikmesi**: Default is 5 seconds. Increase if you're getting too many rate limits.
 
 ## 🛡️ Güvenlik Özellikleri
 
@@ -300,6 +302,8 @@ cargo run --release
 
 > [!NOTE]  
 > - Gecikmeleri ihtiyacınıza göre ayarlayın
+> - Varsayılan silme gecikmesi: 50ms
+> - Varsayılan rate limit gecikmesi: 5 saniye
 > - Yüksek gecikmeler = Daha kararlı ama yavaş
 > - Düşük gecikmeler = Daha hızlı ama rate limit riski yüksek
 
