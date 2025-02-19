@@ -569,5 +569,8 @@ async fn main() -> Result<()> {
         println!("Operation aborted by user.");
     }
 
+    println!("\nPress Enter to exit...");
+    read_input("")?;
+
     Ok(())
 } 
