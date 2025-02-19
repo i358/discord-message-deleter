@@ -345,5 +345,5 @@ Soru veya önerileriniz için:
 ---
 
 <div align="center">
-❤️ ile <a href="https://github.com/i358">i358</a> tarafından yapıldı
+Made with ❤️ by <a href="https://github.com/i358">i358</a>
 </div>
