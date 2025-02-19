@@ -6,7 +6,7 @@
 
 A Rust tool to safely delete Discord messages in bulk, supporting both DMs and server channels.
 
-[🇹🇷 Türkçe açıklama için tıklayın](#-türkçe-açıklama)
+[🇹🇷 Türkçe açıklama için tıklayın](#-discord-mesaj-silme-aracı)
 
 > [!WARNING]  
 > Using user tokens might be against Discord's Terms of Service. Use at your own risk.
