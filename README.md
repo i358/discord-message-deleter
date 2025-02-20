@@ -70,8 +70,8 @@ You have two options for installation:
 1. Go to the [Releases](https://github.com/i358/discordMessageDeleter/releases) page
 2. Download the latest release for your system
 3. Extract the zip file
-4. Create a `.env` file using the provided `.env.example` template
-5. Add your credentials to the `.env` file
+4. Edit the provided `.env` file with your credentials
+5. Run the program
 
 ### Option 2: Build from Source
 1. Clone the repository:
@@ -252,8 +252,8 @@ Discord mesajlarınızı güvenli bir şekilde toplu olarak silmek için gelişt
 1. [Releases](https://github.com/i358/discordMessageDeleter/releases) sayfasına gidin
 2. Sisteminize uygun olan son sürümü indirin
 3. Zip dosyasını çıkartın
-4. Verilen `.env.example` dosyasını kullanarak bir `.env` dosyası oluşturun
-5. `.env` dosyasına bilgilerinizi ekleyin
+4. Verilen `.env` dosyasına bilgilerinizi ekleyin
+5. Programı çalıştırın
 
 ### Seçenek 2: Kaynak Koddan Derleme
 1. Depoyu klonlayın:
