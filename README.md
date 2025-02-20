@@ -67,7 +67,7 @@ A Rust tool to safely delete Discord messages in bulk, supporting both DMs and s
 You have two options for installation:
 
 ### Option 1: Download from Releases (Recommended)
-1. Go to the [Releases](https://github.com/i358/discordMessageDeleter/releases) page
+1. Go to the [Releases](https://github.com/i358/discord-message-deleter/releases) page
 2. Download the latest release for your system
 3. Extract the zip file
 4. Edit the provided `.env` file with your credentials
@@ -76,8 +76,8 @@ You have two options for installation:
 ### Option 2: Build from Source
 1. Clone the repository:
 ```bash
-git clone https://github.com/i358/discordMessageDeleter
-cd discordMessageDeleter
+git clone https://github.com/i358/discord-message-deleter
+cd discord-message-deleter
 ```
 
 2. Copy the example environment file:
@@ -249,7 +249,7 @@ Discord mesajlarınızı güvenli bir şekilde toplu olarak silmek için gelişt
 İki farklı kurulum seçeneğiniz var:
 
 ### Seçenek 1: Releases'den İndirme (Önerilen)
-1. [Releases](https://github.com/i358/discordMessageDeleter/releases) sayfasına gidin
+1. [Releases](https://github.com/i358/discord-message-deleter/releases) sayfasına gidin
 2. Sisteminize uygun olan son sürümü indirin
 3. Zip dosyasını çıkartın
 4. Verilen `.env` dosyasına bilgilerinizi ekleyin
@@ -258,8 +258,8 @@ Discord mesajlarınızı güvenli bir şekilde toplu olarak silmek için gelişt
 ### Seçenek 2: Kaynak Koddan Derleme
 1. Depoyu klonlayın:
 ```bash
-git clone https://github.com/i358/discordMessageDeleter
-cd discordMessageDeleter
+git clone https://github.com/i358/discord-message-deleter
+cd discord-message-deleter
 ```
 
 2. Örnek çevre değişkenleri dosyasını kopyalayın:
