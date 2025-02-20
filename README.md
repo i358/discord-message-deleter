@@ -155,6 +155,16 @@ cargo run --release
 > - Keep your .env file secure
 > - Don't commit sensitive information to git
 
+## 🔍 VirusTotal Analysis
+
+> [!NOTE]
+> The Windows executable has been scanned with VirusTotal for security verification.
+
+> [!TIP]
+> You can verify the security analysis of the Windows executable yourself:
+> - Hash: `6b1d61e2f72a1a176894b8e9fa423e928f075d67bc9765630665c45ebacd9832`
+> - [View VirusTotal Report](https://www.virustotal.com/gui/file/6b1d61e2f72a1a176894b8e9fa423e928f075d67bc9765630665c45ebacd9832/detection)
+
 ## 🚀 Performance Tips
 
 > [!NOTE]  
@@ -336,6 +346,16 @@ cargo run --release
 > - Discord tokeninizi asla paylaşmayın
 > - .env dosyanızı güvende tutun
 > - Hassas bilgileri git'e commit etmeyin
+
+## 🔍 VirusTotal Analizi
+
+> [!NOTE]
+> Windows için yayınlanan .exe dosyası güvenlik doğrulaması için VirusTotal ile taranmıştır.
+
+> [!TIP]
+> Windows için yayınlanan .exe dosyasının güvenlik analizini kendiniz doğrulayabilirsiniz:
+> - Hash: `6b1d61e2f72a1a176894b8e9fa423e928f075d67bc9765630665c45ebacd9832`
+> - [VirusTotal Raporu](https://www.virustotal.com/gui/file/6b1d61e2f72a1a176894b8e9fa423e928f075d67bc9765630665c45ebacd9832/detection)
 
 ## 🚀 Performans İpuçları
 
