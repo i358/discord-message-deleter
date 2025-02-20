@@ -485,88 +485,98 @@ async fn main() -> Result<()> {
     println!("Discord Message Deleter");
     println!("----------------------");
 
-    let token = match env::var("DISCORD_TOKEN") {
-        Ok(token) => token,
-        Err(_) => return Err(anyhow!("DISCORD_TOKEN not found in .env file")),
-    };
+    let result = async {
+        let token = match env::var("DISCORD_TOKEN") {
+            Ok(token) => token,
+            Err(_) => return Err(anyhow!("DISCORD_TOKEN not found in .env file")),
+        };
 
-    if !DiscordClient::validate_token(&token).await? {
-        return Err(anyhow!("Invalid Discord token"));
-    }
+        if !DiscordClient::validate_token(&token).await? {
+            return Err(anyhow!("Invalid Discord token"));
+        }
 
-    let author_id = match env::var("AUTHOR_ID") {
-        Ok(id) if validate_snowflake(&id) => id,
-        Ok(_) => return Err(anyhow!("Invalid AUTHOR_ID format in .env file")),
-        Err(_) => return Err(anyhow!("AUTHOR_ID not found in .env file")),
-    };
+        let author_id = match env::var("AUTHOR_ID") {
+            Ok(id) if validate_snowflake(&id) => id,
+            Ok(_) => return Err(anyhow!("Invalid AUTHOR_ID format in .env file")),
+            Err(_) => return Err(anyhow!("AUTHOR_ID not found in .env file")),
+        };
 
-    let channel_id = loop {
-        let input = read_input("Enter channel ID: ")?;
-        if validate_snowflake(&input) {
-            if DiscordClient::validate_channel(&token, &input).await? {
-                // * Get channel info
-                match DiscordClient::get_channel_info(&token, &input).await {
-                    Ok(info) => {
-                        println!("\nChannel Information:");
-                        println!("------------------");
-                        match info.channel_type {
-                            1 => {
-                                println!("Type: Direct Message (DM)");
-                                if let Some(recipients) = info.recipients {
-                                    for user in recipients {
-                                        println!("With User: {}#{}", user.username, user.discriminator);
+        let channel_id = loop {
+            let input = read_input("Enter channel ID: ")?;
+            if validate_snowflake(&input) {
+                if DiscordClient::validate_channel(&token, &input).await? {
+                    match DiscordClient::get_channel_info(&token, &input).await {
+                        Ok(info) => {
+                            println!("\nChannel Information:");
+                            println!("------------------");
+                            match info.channel_type {
+                                1 => {
+                                    println!("Type: Direct Message (DM)");
+                                    if let Some(recipients) = info.recipients {
+                                        for user in recipients {
+                                            println!("With User: {}#{}", user.username, user.discriminator);
+                                        }
                                     }
-                                }
-                            },
-                            3 => println!("Type: Group DM"),
-                            0 | 2 | 4 | 5 | 6 => {
-                                println!("Type: Server Channel");
-                                if let Some(name) = info.name {
-                                    println!("Channel Name: #{}", name);
-                                }
-                            },
-                            _ => println!("Type: Unknown Channel Type"),
-                        }
-                        println!("------------------");
-                        break input;
-                    },
-                    Err(e) => {
-                        println!("Warning: Could not get channel details: {}", e);
-                        println!("Do you want to continue anyway? (y/N): ");
-                        if read_input("")?.to_lowercase() == "y" {
+                                },
+                                3 => println!("Type: Group DM"),
+                                0 | 2 | 4 | 5 | 6 => {
+                                    println!("Type: Server Channel");
+                                    if let Some(name) = info.name {
+                                        println!("Channel Name: #{}", name);
+                                    }
+                                },
+                                _ => println!("Type: Unknown Channel Type"),
+                            }
+                            println!("------------------");
                             break input;
-                        } else {
-                            continue;
+                        },
+                        Err(e) => {
+                            println!("Warning: Could not get channel details: {}", e);
+                            println!("Do you want to continue anyway? (y/N): ");
+                            if read_input("")?.to_lowercase() == "y" {
+                                break input;
+                            } else {
+                                continue;
+                            }
                         }
                     }
+                } else {
+                    println!("Channel not found or no access. Please try again.");
+                    continue;
                 }
-            } else {
-                println!("Channel not found or no access. Please try again.");
-                continue;
             }
+            println!("Invalid channel ID format. Please enter a valid Discord ID.");
+        };
+
+        let delete_delay = read_number_input(
+            &format!("Enter delay between message deletions ({}ms-{}ms, default 200ms): ",
+                MIN_DELETE_DELAY, MAX_DELETE_DELAY),
+            MIN_DELETE_DELAY,
+            MAX_DELETE_DELAY,
+            200,
+        )?;
+
+        println!("\nConfiguration:");
+        println!("Channel ID: {}", channel_id);
+        println!("Delete Delay: {}ms", delete_delay);
+        println!("Author ID: {}", author_id);
+        
+        if read_input("\nContinue? (Y/n): ")?.to_lowercase() != "n" {
+            println!("\nStarting message deletion process...");
+            let discord = DiscordClient::new(token, channel_id, author_id, delete_delay)?;
+            discord.delete_all_messages().await?;
+        } else {
+            println!("Operation aborted by user.");
         }
-        println!("Invalid channel ID format. Please enter a valid Discord ID.");
-    };
 
-    let delete_delay = read_number_input(
-        &format!("Enter delay between message deletions ({}ms-{}ms, default 200ms): ",
-            MIN_DELETE_DELAY, MAX_DELETE_DELAY),
-        MIN_DELETE_DELAY,
-        MAX_DELETE_DELAY,
-        200,
-    )?;
+        Ok(())
+    }.await;
 
-    println!("\nConfiguration:");
-    println!("Channel ID: {}", channel_id);
-    println!("Delete Delay: {}ms", delete_delay);
-    println!("Author ID: {}", author_id);
-    
-    if read_input("\nContinue? (Y/n): ")?.to_lowercase() != "n" {
-        println!("\nStarting message deletion process...");
-        let discord = DiscordClient::new(token, channel_id, author_id, delete_delay)?;
-        discord.delete_all_messages().await?;
-    } else {
-        println!("Operation aborted by user.");
+    if let Err(e) = result {
+        println!("\nError: {}", e);
+        println!("\nPress Enter to exit...");
+        read_input("")?;
+        return Err(e);
     }
 
     println!("\nPress Enter to exit...");
