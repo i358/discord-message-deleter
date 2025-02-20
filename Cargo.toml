@@ -6,8 +6,17 @@ authors = ["i358"]
 description = "A Rust tool to safely delete Discord messages in bulk"
 repository = "https://github.com/i358/discordMessageDeleter"
 license = "MIT"
-keywords = ["discord", "message", "purge", "prune", "delete", "bulk", "automation"]
+keywords = ["discord", "message", "delete", "bulk"]
 categories = ["command-line-utilities"]
+
+# Optimization settings
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = 'abort'
+strip = true
+debug = false
 
 [dependencies]
 tokio = { version = "1.36", features = ["full"] }

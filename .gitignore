@@ -14,7 +14,11 @@ Cargo.lock
 # Environment files
 .env
 .env.*
-!.example.env
+!.env.example
+
+# Release files and directories
+releases/
+*.zip
 
 # IDE specific files
 .idea/
@@ -24,4 +28,4 @@ Cargo.lock
 
 # OS specific files
 .DS_Store
-Thumbs.db 
+Thumbs.db
